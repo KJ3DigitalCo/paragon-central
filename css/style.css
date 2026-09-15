@@ -1,0 +1,351 @@
+/* Paragon Central — shared design system (2026 refresh) */
+
+:root{
+  --blue:#2747A0;
+  --blue-ink:#121A38;
+  --blue-950:#0B1128;
+  --blue-50:#EEF2FB;
+  --blue-100:#DCE4F5;
+  --gold:#FFBF00;
+  --gold-deep:#C98F00;
+  --gold-pale:#FFE7A3;
+  --red:#D33333;
+  --orange:#FF8B00;
+  --ink:#181B22;
+  --muted:#5B6273;
+  --paper:#FAF9F6;
+  --white:#FFFFFF;
+  --border:#E4E7F0;
+  --shadow:0 20px 40px -20px rgba(18,26,56,.25);
+  --shadow-lg:0 32px 64px -24px rgba(11,17,40,.45);
+  --grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/></svg>");
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Roboto",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:1.05rem;
+  line-height:1.65;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--gold);color:var(--blue-ink)}
+
+h1,h2,h3,h4{font-family:"Roboto",sans-serif;font-weight:800;line-height:1.06;letter-spacing:-.02em;margin:0;text-wrap:balance}
+h1{font-size:clamp(2.6rem,6vw,4.4rem);font-weight:900;letter-spacing:-.03em}
+h2{font-size:clamp(2rem,3.8vw,2.9rem)}
+h3{font-size:1.3rem;font-weight:700}
+p{margin:0 0 1.1rem}
+.lead{font-size:1.22rem;color:var(--muted);font-weight:400;line-height:1.55}
+
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+section{padding:96px 0}
+@media(max-width:720px){section{padding:64px 0}}
+
+.eyebrow{
+  font-weight:700;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold-deep);margin:0 0 18px;
+}
+.eyebrow.on-dark{color:var(--gold)}
+
+/* ---- facet system (signature motif: chamfered corner, like a cut gem) ---- */
+.facet{clip-path:polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%)}
+.facet-sm{clip-path:polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%)}
+.facet-both{clip-path:polygon(22px 0, 100% 0, 100% calc(100% - 22px), calc(100% - 22px) 100%, 0 100%, 0 22px)}
+.facet-lg{clip-path:polygon(0 0, calc(100% - 44px) 0, 100% 44px, 100% 100%, 0 100%)}
+
+/* diagonal section transitions — the signature "cut" between blocks */
+.tilt-bottom{position:relative}
+.tilt-bottom::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:64px;background:inherit;clip-path:polygon(0 0, 100% 100%, 100% 100%, 0% 100%);z-index:1}
+.tilt-bottom-alt::after{clip-path:polygon(0 100%, 100% 0, 100% 100%, 0 100%)}
+
+/* grain texture for depth on dark sections */
+.grain{position:relative}
+.grain::before{content:"";position:absolute;inset:0;background-image:var(--grain);pointer-events:none;mix-blend-mode:overlay}
+
+/* ---- buttons ---- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  font-weight:700;font-size:.98rem;padding:16px 30px;border:none;cursor:pointer;
+  transition:transform .18s cubic-bezier(.2,.8,.2,1), box-shadow .18s ease, background .18s ease;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(0)}
+.btn-gold{background:var(--gold);color:var(--blue-ink);box-shadow:0 0 0 0 rgba(255,191,0,.5)}
+.btn-gold:hover{background:var(--gold-deep);box-shadow:0 12px 28px -8px rgba(255,191,0,.55)}
+.btn-outline{background:transparent;color:var(--white);border:1.5px solid rgba(255,255,255,.5)}
+.btn-outline:hover{border-color:var(--white);background:rgba(255,255,255,.06)}
+.btn-outline-blue{background:transparent;color:var(--blue);border:1.5px solid var(--blue-100)}
+.btn-outline-blue:hover{border-color:var(--blue)}
+.btn-block{width:100%}
+.btn-lg{padding:19px 34px;font-size:1.06rem}
+@media(prefers-reduced-motion:reduce){.btn{transition:none}.btn:hover{transform:none}}
+
+/* ---- header ---- */
+header.site{position:sticky;top:0;z-index:40;background:rgba(250,249,246,.88);backdrop-filter:blur(10px) saturate(1.4);border-bottom:1px solid var(--border)}
+header.site .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-top:16px;padding-bottom:16px}
+.logo{display:flex;align-items:center;gap:10px;line-height:1.1}
+.logo img{height:46px;width:auto;object-fit:contain;flex:none}
+footer.site .logo img{height:52px}
+.logo-text{display:flex;flex-direction:column;gap:3px}
+.logo-name{font-weight:900;font-size:1.05rem;letter-spacing:.01em;color:var(--ink)}
+.logo-tag{font-size:.5rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+nav.main{display:flex;align-items:center;gap:32px}
+nav.main a{font-weight:500;font-size:.95rem;color:var(--ink);position:relative}
+nav.main a:hover{color:var(--blue)}
+.nav-links{display:flex;gap:28px}
+.nav-toggle{display:none;background:none;border:none;padding:6px;cursor:pointer;color:var(--ink)}
+.nav-toggle svg{width:26px;height:26px;display:block}
+@media(max-width:840px){
+  .nav-links{display:none}
+  .nav-toggle{display:block}
+  header.site{position:relative}
+  header.site .nav-links{
+    position:absolute;top:100%;left:0;right:0;
+    flex-direction:column;gap:0;background:var(--paper);
+    border-bottom:1px solid var(--border);box-shadow:var(--shadow-lg);
+    padding:8px 24px;
+  }
+  header.site .nav-links.open{display:flex}
+  header.site .nav-links a{padding:14px 0;border-bottom:1px solid var(--border)}
+  header.site .nav-links a:last-child{border-bottom:none}
+}
+
+/* ---- hero (dark navy, diamond motif) ---- */
+.hero{background:var(--blue-950);color:var(--white);position:relative;overflow:hidden;padding:104px 0 88px}
+.hero .wrap{position:relative;z-index:2}
+.hero-grid{display:grid;grid-template-columns:var(--cols, minmax(0,1fr) 400px);gap:56px;align-items:center}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr}}
+.hero p.lead{color:#B9C2DE}
+.hero-mark{position:absolute;right:-120px;top:50%;transform:translateY(-50%);width:640px;opacity:.12;pointer-events:none}
+.hero-mark-fg{width:100%;filter:drop-shadow(0 30px 60px rgba(0,0,0,.4))}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:36px}
+
+/* ---- hero stats (social-proof counters) ---- */
+.hero-stats{display:flex;gap:40px;margin-top:40px;padding-top:28px;border-top:1px solid rgba(255,255,255,.14)}
+.hero-stat-num{display:block;font-family:"Roboto",sans-serif;font-weight:900;font-size:clamp(1.6rem,3vw,2.2rem);color:var(--gold);line-height:1}
+.hero-stat-label{display:block;margin-top:4px;font-size:.82rem;color:#B9C2DE}
+
+/* ---- trust strip ---- */
+.trust{background:var(--white);border-bottom:1px solid var(--border)}
+.trust .wrap{display:flex;align-items:center;justify-content:center;gap:22px;padding:22px 24px;flex-wrap:wrap;text-align:center}
+.trust img{height:46px;width:auto}
+.trust p{margin:0;font-size:.92rem;color:var(--muted)}
+.trust strong{color:var(--ink)}
+
+/* ---- cards ---- */
+.grid{display:grid;gap:28px}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-4{grid-template-columns:repeat(4,1fr)}
+.grid-5{grid-template-columns:repeat(5,1fr)}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:900px){.grid-3,.grid-4,.grid-5{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.grid-3,.grid-4,.grid-5,.grid-2{grid-template-columns:1fr}}
+
+.card{background:var(--white);border:1px solid var(--border);padding:32px 28px;box-shadow:var(--shadow);transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .2s ease,border-color .2s ease}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--gold)}
+.card .icon{width:48px;height:48px;background:var(--blue-50);display:flex;align-items:center;justify-content:center;margin-bottom:18px;clip-path:polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)}
+.card .icon svg{width:24px;height:24px;stroke:var(--blue)}
+.card h3{margin-bottom:10px}
+.card p{color:var(--muted);margin-bottom:0;font-size:.98rem}
+@media(prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
+
+/* ---- section variants ---- */
+.section-blue{background:var(--blue);color:var(--white)}
+.section-blue .muted{color:#C7D2EC}
+.section-navy{background:linear-gradient(160deg,var(--blue) 0%,var(--blue-950) 100%);color:var(--white)}
+.section-navy .muted{color:#AEB8D6}
+.section-tint{background:var(--blue-50)}
+
+/* ---- band / CTA ---- */
+.band{background:linear-gradient(160deg,var(--blue-ink) 0%,var(--blue-950) 100%);color:var(--white);padding:68px 0}
+.band .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.band h2{font-size:clamp(1.6rem,3vw,2.1rem)}
+
+/* ---- footer ---- */
+footer.site{background:var(--blue-950);color:#AEB8D6;padding:64px 0 32px}
+footer.site .logo-name{color:var(--white)}
+footer.site .logo-tag{color:#AEB8D6}
+footer.site .grid{grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-top:40px}
+@media(max-width:720px){footer.site .grid{grid-template-columns:1fr 1fr}}
+footer.site h4{color:var(--white);font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:16px}
+footer.site a{display:block;color:#AEB8D6;font-size:.94rem;margin-bottom:10px;transition:color .15s ease}
+footer.site a:hover{color:var(--gold)}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.12);margin-top:48px;padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:.85rem;color:#8792B0}
+
+/* ---- forms ---- */
+@property --border-angle{syntax:'<angle>';inherits:false;initial-value:0deg}
+
+.form-card{
+  position:relative;isolation:isolate;
+  background:var(--white);
+  border-radius:18px;padding:36px;
+  box-shadow:var(--shadow-lg);
+  color:var(--ink);
+}
+/* Dark-glass variant: only when the card sits on a dark section, so
+   contact.html's form-card (on a plain light section) stays legible.
+   Re-themes every token-driven child (.field, .muted, .form-note, h3...)
+   just by rescoping the custom properties here — avoids re-declaring
+   color rules for every element inside the card. */
+.hero .form-card,.section-navy .form-card{
+  --ink:#F4F6FB;--muted:#AEB9DC;--white:rgba(255,255,255,.05);
+  --border:rgba(255,255,255,.14);--blue:var(--gold);
+  background:linear-gradient(165deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  box-shadow:0 30px 70px -30px rgba(0,0,0,.65), inset 0 1px 0 rgba(255,255,255,.08);
+}
+.form-card h3{color:var(--ink);font-size:1.2rem}
+.form-card::before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  padding:1px;border-radius:inherit;
+  /* Two soft comets chasing each other around the ring (gold + blue), each
+     ramping up/down over a wide arc rather than a hard 8-16deg jump — a
+     tight jump is what made the highlight visually "bunch up" into a bright
+     dot at the rounded corners instead of flowing smoothly along the curve. */
+  background:conic-gradient(from var(--border-angle),
+    transparent 0deg,
+    var(--gold-pale) 35deg,
+    var(--gold) 55deg,
+    var(--gold-deep) 75deg,
+    transparent 125deg,
+    transparent 215deg,
+    var(--blue-100) 250deg,
+    #2747A0 270deg,
+    var(--blue-ink) 290deg,
+    transparent 340deg,
+    transparent 360deg);
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  filter:blur(1px);
+  animation:border-beam-spin 7s linear infinite;
+  pointer-events:none;
+}
+@keyframes border-beam-spin{to{--border-angle:360deg}}
+@media(prefers-reduced-motion:reduce){.form-card::before{animation:none}}
+
+.field{margin-bottom:18px}
+.field label{display:block;font-size:.76rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;color:var(--muted)}
+.field input,.field select,.field textarea{
+  width:100%;padding:13px 14px;border:1.5px solid var(--border);background:var(--white);
+  border-radius:8px;
+  font-family:inherit;font-size:1rem;color:var(--ink);transition:border-color .15s ease, box-shadow .15s ease, background .15s ease;
+}
+.field input::placeholder,.field textarea::placeholder{color:var(--muted);opacity:.7}
+/* The dropdown POPUP is a native OS control that always renders on a
+   light background, regardless of the select's own theme — on a dark
+   form-card, --ink is locally overridden to a pale color for the closed
+   box, and that same pale color was leaking into the option list, making
+   it nearly unreadable against the popup's white background. */
+.field select option{color:#181B22;background:#fff}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(255,191,0,.18);background:rgba(255,255,255,.07)}
+.form-note{font-size:.8rem;color:var(--muted);margin-top:12px;text-align:center}
+.form-success{text-align:center;padding:24px 0}
+.form-success h3{margin-bottom:8px}
+.form-success p{color:var(--muted);margin:0}
+
+/* ---- misc ---- */
+.tag{display:inline-flex;align-items:center;gap:8px;background:var(--blue-50);color:var(--blue);font-size:.82rem;font-weight:600;padding:7px 15px;clip-path:polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)}
+.divider-gold{width:52px;height:3px;background:var(--gold);margin:0 0 20px}
+.center{text-align:center}
+.section-head{max-width:640px;margin:0 auto 56px}
+.section-head.left{margin:0 0 56px}
+
+/* ---- long-form landing page components ---- */
+.myth-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);border:1px solid var(--border)}
+@media(max-width:720px){.myth-grid{grid-template-columns:1fr}}
+.myth-col{background:var(--white);padding:32px 28px}
+.myth-col h3{display:flex;align-items:center;gap:10px;margin-bottom:18px;font-size:1.05rem}
+.myth-col.no h3{color:var(--red)}
+.myth-col.yes h3{color:var(--blue)}
+.myth-col ul{margin:0;padding:0;list-style:none}
+.myth-col li{display:flex;gap:10px;margin-bottom:14px;color:var(--muted);font-size:.96rem;line-height:1.5}
+.myth-col li::before{flex:none;font-weight:700;width:18px}
+.myth-col.no li::before{content:"✕";color:var(--red)}
+.myth-col.yes li::before{content:"✓";color:var(--blue)}
+
+.check-list{margin:0 0 24px;padding:0;list-style:none}
+.check-list li{display:flex;gap:12px;margin-bottom:14px;font-size:1.02rem}
+.check-list li::before{content:"✓";flex:none;width:24px;height:24px;background:var(--gold);color:var(--blue-ink);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700}
+
+.callout{background:var(--blue-950);color:var(--white);padding:30px 34px;display:flex;align-items:center;gap:20px;clip-path:polygon(0 0, calc(100% - 26px) 0, 100% 26px, 100% 100%, 0 100%)}
+.callout p{margin:0;color:#C7D2EC}
+.callout strong{color:var(--white)}
+
+.step-list{counter-reset:step;margin:0;padding:0;list-style:none}
+.step-list li{counter-increment:step;display:flex;gap:18px;padding:22px 0;border-bottom:1px solid var(--border)}
+.step-list li:last-child{border-bottom:none}
+.step-list li::before{content:counter(step);flex:none;width:36px;height:36px;background:var(--blue-50);color:var(--blue);font-weight:800;display:flex;align-items:center;justify-content:center;clip-path:polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 0 100%)}
+.step-list h4{margin-bottom:4px;font-size:1.04rem}
+.step-list p{margin:0;color:var(--muted);font-size:.94rem}
+
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+/* ---- services ticker (infinite marquee, diamond separators) ---- */
+.ticker{padding:0;overflow:hidden;background:var(--blue-950);border-top:1px solid rgba(255,255,255,.12);border-bottom:1px solid rgba(255,255,255,.12)}
+.ticker-track{display:flex;align-items:center;width:max-content;gap:32px;padding:32px 0;animation:ticker-scroll 26s linear infinite}
+.ticker-item{display:flex;align-items:center;gap:32px;flex:none}
+.ticker-item span{font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace;font-weight:400;font-size:.875rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);white-space:nowrap}
+.ticker-item i{width:8px;height:8px;flex:none;background:var(--gold);transform:rotate(45deg)}
+@media(min-width:640px){.ticker-track,.ticker-item{gap:48px}.ticker-item span{font-size:1rem}}
+@keyframes ticker-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.ticker-track{animation:none}}
+
+/* ---- flag spotlight (cursor-revealed PH flag behind hero overlay) ---- */
+.flag-spotlight{position:absolute;inset:0;overflow:hidden;z-index:0}
+.flag-spotlight-img{position:absolute;inset:0;width:100%;height:100%;background-image:url(../img/team-photo.jpg);background-size:cover;background-position:center 20%}
+.flag-spotlight-overlay{position:absolute;inset:0;background:var(--blue-950);opacity:.93}
+.flag-spotlight-mask{
+  opacity:1;
+  mask-image:radial-gradient(circle 640px at var(--spot-x,50%) var(--spot-y,40%), rgba(0,0,0,.5) 0%, rgba(0,0,0,.5) 38%, black 68%, black 100%);
+  -webkit-mask-image:radial-gradient(circle 640px at var(--spot-x,50%) var(--spot-y,40%), rgba(0,0,0,.5) 0%, rgba(0,0,0,.5) 38%, black 68%, black 100%);
+}
+@media(hover:none),(pointer:coarse){.flag-spotlight-mask{mask-image:none;-webkit-mask-image:none;opacity:.93}}
+
+/* ---- flow-field canvas background (drifting particle lines) ---- */
+.flow-bg{position:absolute;inset:0;z-index:0;overflow:hidden}
+.flow-canvas{position:absolute;inset:0;width:100%;height:100%}
+
+/* ---- custom cursor (gold ring + trailing dot) ---- */
+.cursor-dot{position:fixed;top:0;left:0;width:8px;height:8px;border-radius:50%;background:var(--gold);pointer-events:none;z-index:9999;opacity:0;transition:opacity .2s ease}
+.cursor-ring{position:fixed;top:0;left:0;width:32px;height:32px;border-radius:50%;border:2px solid var(--gold);pointer-events:none;z-index:9999;opacity:0;transition:opacity .2s ease}
+.cursor-active,.cursor-active *{cursor:none!important}
+@media(hover:none),(pointer:coarse){.cursor-dot,.cursor-ring{display:none!important}}
+@media(prefers-reduced-motion:reduce){.cursor-dot,.cursor-ring{display:none!important}}
+
+/* ---- build transition (scroll-pinned "Let's Learn" collision/shatter,
+   faithful port of KJ3's BuildTransition.jsx) ---- */
+.build-transition{position:relative;height:100dvh;width:100%;overflow:hidden;background:var(--blue-950)}
+.bt-flash{position:absolute;inset:0;background:rgba(255,191,0,.6);opacity:0;pointer-events:none}
+.bt-ring{position:absolute;left:50%;top:50%;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;border:2px solid var(--gold);opacity:0;pointer-events:none}
+.bt-sparks{position:absolute;inset:0;pointer-events:none}
+.bt-spark{position:absolute;left:50%;top:50%;opacity:0;background:linear-gradient(to top, transparent, var(--c1), var(--c2))}
+.bt-spark.spark-white{--c1:#fff;--c2:#fff}
+.bt-spark.spark-gold{--c1:var(--gold);--c2:var(--gold)}
+.bt-spark.spark-gold-deep{--c1:var(--gold-deep);--c2:var(--gold)}
+.bt-stage{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.bt-wordmark{position:relative;width:100%;height:16vw;display:flex;align-items:center;justify-content:center}
+.bt-piece{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;will-change:transform}
+.bt-lets,.bt-learn{font-weight:900;font-size:11vw;line-height:1;white-space:nowrap;will-change:transform}
+.bt-lets{color:var(--white);margin-right:-1.3vw}
+.bt-learn{color:var(--gold)}
+.bt-tagline{margin-top:-1rem;font-style:italic;font-size:1.15rem;letter-spacing:.02em;color:rgba(255,255,255,.7)}
+.build-transition-buffer{position:relative;z-index:10;margin-top:-56px;height:56px;background:var(--blue-950);pointer-events:none}
+@media(max-width:720px){.bt-wordmark{height:22vw}.bt-lets,.bt-learn{font-size:15vw}}
+
+/* ---- magnetic text (letters pull toward the cursor) ---- */
+.magnetic-letter{display:inline-block;transition:transform .15s ease-out;will-change:transform}
+@media(prefers-reduced-motion:reduce){.magnetic-letter{transition:none}}
+
+/* ---- attention bounce (continuous jump for a CTA that needs noticing) ----
+   Lives on a wrapper span, not the .btn itself — the button already animates
+   its own transform on hover and via magnetic.js's pointermove, and a CSS
+   keyframe animation on that same property would fight both. */
+.btn-jump{display:inline-block;animation:btn-jump-bounce 1.6s ease-in-out infinite}
+@keyframes btn-jump-bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@media(prefers-reduced-motion:reduce){.btn-jump{animation:none}}

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact | Paragon Central</title>
+<meta name="description" content="Book a free consultation with Paragon Central: life insurance, health plans, education funds, and retirement planning.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="img/favicon-32x32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="img/favicon-16x16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="index.html"><img src="img/logo-horizontal-gold.png" alt="Paragon Central"></a>
+    <nav class="main">
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="landing-recruit.html">Careers</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <a class="btn btn-gold" href="landing-quote.html">Free Consultation</a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<section class="hero grain" style="padding:64px 0">
+  <img class="hero-mark" src="img/diamonds-mark.png" alt="" style="width:420px">
+  <div class="wrap">
+    <p class="eyebrow on-dark">Get In Touch</p>
+    <h1 style="max-width:600px">Let's talk about your family's plan.</h1>
+    <p class="lead" style="max-width:560px">No pressure, no jargon, just a real conversation about where you are and what you're protecting.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="hero-grid" style="--cols:1fr 420px;align-items:start">
+      <div class="form-card">
+        <h3 style="margin-bottom:20px">Book your free consultation</h3>
+        <form class="lead-form" data-form-type="sales">
+          <div class="grid grid-2" style="gap:16px">
+            <div class="field"><label for="name">Full name</label><input id="name" name="name" type="text" required></div>
+            <div class="field"><label for="phone">Mobile number</label><input id="phone" name="phone" type="tel" required></div>
+          </div>
+          <div class="field"><label for="email">Email address</label><input id="email" name="email" type="email" required></div>
+          <div class="field">
+            <label for="interest">I'm interested in</label>
+            <select id="interest" name="interest">
+              <option>Life Protection</option>
+              <option>Critical Illness &amp; Health</option>
+              <option>Accident &amp; Hospitalization</option>
+              <option>Endowment</option>
+              <option>Wealth Building</option>
+              <option>Not sure yet, help me figure it out</option>
+            </select>
+          </div>
+          <div class="field"><label for="message">Anything you'd like us to know?</label><textarea id="message" name="message" rows="4"></textarea></div>
+          <button class="btn btn-gold btn-block btn-lg" type="submit">Request My Free Consultation</button>
+          <p class="form-note">We'll reach out within one business day. No spam, ever.</p>
+        </form>
+      </div>
+      <div>
+        <div class="card facet" style="margin-bottom:20px">
+          <h3>Direct contact</h3>
+          <p class="muted" style="color:var(--muted);margin-bottom:14px">Prefer to reach out yourself?</p>
+          <p style="margin-bottom:0"><strong>Location</strong><br>Quezon City, Philippines</p>
+        </div>
+        <div class="card facet" style="background:var(--blue-50)">
+          <h3>Office hours</h3>
+          <p style="margin-bottom:4px">Monday – Saturday: 9:00 AM – 6:00 PM</p>
+          <p style="margin-bottom:0;color:var(--muted)">Consultations also available online by appointment.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <a class="logo" href="index.html"><img src="img/logo-horizontal-gold.png" alt="Paragon Central"></a>
+    <div class="grid">
+      <div>
+        <h4>Paragon Central</h4>
+        <p style="color:#AEB8D6;font-size:.94rem;max-width:280px">Life + Wealth Coaches. Committed to excellence. Committed to you.</p>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div>
+        <h4>Get Started</h4>
+        <a href="landing-quote.html">Free Consultation</a>
+        <a href="landing-recruit.html">Join Our Team</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a>Quezon City, Philippines</a>
+      </div>
+    </div>
+    <div class="foot-bottom" style="flex-direction:column;align-items:center;gap:12px">
+      <span>Insurance products offered through licensed financial advisors.</span>
+      <div style="display:flex;justify-content:space-between;align-items:center;width:100%;flex-wrap:wrap;gap:12px">
+        <a href="privacy.html" style="color:#8792B0;display:inline">Privacy Policy</a>
+        <span>&copy; 2026 Paragon Central. All rights reserved.</span>
+        <a href="terms.html" style="color:#8792B0;display:inline">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/navtoggle.js" defer></script>
+<script src="js/cursor.js" defer></script>
+<script src="js/leadform.js" defer></script>
+<script src="js/magnetic.js" defer></script>
+</body>
+</html>
