@@ -161,9 +161,9 @@ nav.main a:hover{color:var(--blue)}
 .section-navy .muted{color:#AEB8D6}
 .section-tint{background:var(--blue-50)}
 
-.leader-portrait-wrap{position:absolute;left:max(24px, calc((100% - 1160px)/2 + 24px));bottom:0;width:400px;z-index:2}
-.leader-portrait{height:850px;width:auto;max-width:100%;object-fit:contain;object-position:bottom;display:block}
-.leader-copy{margin-left:420px;padding-left:20px}
+.leader-portrait-wrap{position:absolute;left:max(24px, calc((100% - 1160px)/2 + 24px));bottom:0;width:550px;z-index:2}
+.leader-portrait{height:1170px;width:auto;max-width:100%;object-fit:contain;object-position:bottom;display:block}
+.leader-copy{margin-left:590px;padding-left:20px}
 .leader-copy .lead,.leader-copy ul{max-width:640px}
 @media(max-width:900px){
   .leader-portrait-wrap{position:static;width:100%;max-width:280px;height:auto;margin:0 auto 24px}
