@@ -1,6 +1,19 @@
 (function () {
   var ENDPOINT_URL = 'https://script.google.com/macros/s/AKfycbymv-iXwL4MyUd3M30NZAcl6gq2DqrfTrGqu1Tm6MM4iaAwTO8jd4PC5jwptW39ObSb/exec';
   var MESSENGER_URL = 'https://m.me/61593608711410';
+  var MAX_CV_BYTES = 5 * 1024 * 1024; // 5MB — keeps the base64 POST small enough for Apps Script to handle reliably
+
+  function fileToBase64(file) {
+    return new Promise(function (resolve, reject) {
+      var reader = new FileReader();
+      reader.onload = function () {
+        // reader.result is "data:<mime>;base64,<data>" — Apps Script only wants the data part
+        resolve(String(reader.result).split(',')[1] || '');
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
 
   document.querySelectorAll('form.lead-form').forEach(function (form) {
     form.addEventListener('submit', function (e) {
@@ -8,19 +21,39 @@
 
       var submitBtn = form.querySelector('button[type="submit"]');
       var originalBtnText = submitBtn ? submitBtn.textContent : '';
+      var cvInput = form.querySelector('input[type="file"][name="cv"]');
+      var cvFile = cvInput && cvInput.files[0];
+
+      if (cvFile && cvFile.size > MAX_CV_BYTES) {
+        alert('That CV file is too big (max 5MB). Please pick a smaller file, or leave it blank.');
+        return;
+      }
+
       if (submitBtn) {
         submitBtn.disabled = true;
         submitBtn.textContent = 'Sending...';
       }
 
       var formData = new FormData(form);
+      formData.delete('cv'); // the raw File object can't be read server-side via no-cors; base64 fields below replace it
       formData.append('formType', form.dataset.formType || '');
 
-      // mode:'no-cors' means the response is opaque (can't read result.success),
-      // but the promise still resolves once the request is sent successfully —
-      // that's enough to know it reached the sheet. A genuine network failure
-      // (offline, DNS, etc.) is what actually lands in .catch().
-      fetch(ENDPOINT_URL, { method: 'POST', mode: 'no-cors', body: formData })
+      var ready = cvFile
+        ? fileToBase64(cvFile).then(function (base64) {
+            formData.append('cvData', base64);
+            formData.append('cvFileName', cvFile.name);
+            formData.append('cvMimeType', cvFile.type || 'application/octet-stream');
+          })
+        : Promise.resolve();
+
+      ready
+        .then(function () {
+          // mode:'no-cors' means the response is opaque (can't read result.success),
+          // but the promise still resolves once the request is sent successfully —
+          // that's enough to know it reached the sheet. A genuine network failure
+          // (offline, DNS, etc.) is what actually lands in .catch().
+          return fetch(ENDPOINT_URL, { method: 'POST', mode: 'no-cors', body: formData });
+        })
         .then(function () { showSuccess(form); })
         .catch(function () {
           if (submitBtn) {
