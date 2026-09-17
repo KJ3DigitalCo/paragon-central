@@ -113,6 +113,10 @@ nav.main a:hover{color:var(--blue)}
   header.site .nav-links.open{display:flex}
   header.site .nav-links a{padding:14px 0;border-bottom:1px solid var(--border)}
   header.site .nav-links a:last-child{border-bottom:none}
+  nav.main>a.btn{display:none}
+  header.site .nav-links a.btn{
+    display:block;margin:14px 0 8px;border-bottom:none;text-align:center;border-radius:10px;
+  }
 }
 
 /* ---- hero (dark navy, diamond motif) ---- */
