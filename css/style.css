@@ -173,7 +173,7 @@ nav.main a:hover{color:var(--blue)}
 @media(max-width:900px){
   .leadership-section{display:flex;flex-direction:column;padding-bottom:0}
   .leadership-section .wrap{order:1}
-  .leader-portrait-wrap{order:2;position:relative;width:100%;max-width:280px;height:auto;margin:24px auto 0;z-index:2}
+  .leader-portrait-wrap{order:2;position:relative;left:auto;bottom:auto;width:100%;max-width:320px;height:auto;margin:24px auto 0;z-index:2}
   .leader-portrait{height:auto;width:100%;display:block}
   .leader-copy{margin-left:0;padding-left:0}
 }
