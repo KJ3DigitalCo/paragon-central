@@ -171,8 +171,10 @@ nav.main a:hover{color:var(--blue)}
 .leader-copy{margin-left:590px;padding-left:20px}
 .leader-copy .lead,.leader-copy ul{max-width:640px}
 @media(max-width:900px){
-  .leader-portrait-wrap{position:relative;width:100%;max-width:280px;height:auto;margin:0 auto 24px;z-index:2}
-  .leader-portrait{height:auto;width:100%}
+  .leadership-section{display:flex;flex-direction:column;padding-bottom:0}
+  .leadership-section .wrap{order:1}
+  .leader-portrait-wrap{order:2;position:relative;width:100%;max-width:280px;height:auto;margin:24px auto 0;z-index:2}
+  .leader-portrait{height:auto;width:100%;display:block}
   .leader-copy{margin-left:0;padding-left:0}
 }
 
