@@ -307,6 +307,7 @@ footer.site a:hover{color:var(--gold)}
 .callout{background:var(--blue-950);color:var(--white);padding:30px 34px;display:flex;align-items:center;gap:20px;clip-path:polygon(0 0, calc(100% - 26px) 0, 100% 26px, 100% 100%, 0 100%)}
 .callout p{margin:0;color:#C7D2EC}
 .callout strong{color:var(--white)}
+@media(max-width:720px){.callout{flex-direction:column;align-items:flex-start;text-align:left}}
 
 .step-list{counter-reset:step;margin:0;padding:0;list-style:none}
 .step-list li{counter-increment:step;display:flex;gap:18px;padding:22px 0;border-bottom:1px solid var(--border)}
