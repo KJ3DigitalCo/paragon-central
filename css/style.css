@@ -2,6 +2,7 @@
 
 :root{
   --blue:#2747A0;
+  --blue-rgb:39,71,160;
   --blue-ink:#121A38;
   --blue-950:#0B1128;
   --blue-50:#EEF2FB;
@@ -168,7 +169,7 @@ nav.main a:hover{color:var(--blue)}
 
 .leadership-section{overflow:hidden}
 .leader-portrait-wrap{position:absolute;left:max(24px, calc((100% - 1160px)/2 + 24px));bottom:0;width:550px;z-index:2}
-.leader-portrait{height:1170px;width:auto;max-width:100%;object-fit:contain;object-position:bottom;display:block;filter:drop-shadow(0 24px 40px rgba(0,0,0,.5)) drop-shadow(0 0 70px rgba(39,71,160,.4))}
+.leader-portrait{height:1170px;width:auto;max-width:100%;object-fit:contain;object-position:bottom;display:block;filter:drop-shadow(0 24px 40px rgba(0,0,0,.5)) drop-shadow(0 0 70px rgba(var(--blue-rgb),.4))}
 .leader-copy{margin-left:590px;padding-left:20px}
 .leader-copy .lead,.leader-copy ul{max-width:640px}
 @media(max-width:900px){
