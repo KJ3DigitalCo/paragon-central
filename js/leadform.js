@@ -15,6 +15,25 @@
     });
   }
 
+  // XHR (not fetch) so we can listen to upload.progress for the CV progress bar.
+  // Apps Script's exec endpoint doesn't send CORS headers, so onload/onerror both
+  // just mean "the request went out" — same opaque, presumed-success contract the
+  // old fetch(...,{mode:'no-cors'}) call had.
+  function postWithProgress(url, formData, onProgress) {
+    return new Promise(function (resolve) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', url);
+      if (onProgress) {
+        xhr.upload.addEventListener('progress', function (e) {
+          if (e.lengthComputable) onProgress(e.loaded / e.total);
+        });
+      }
+      xhr.onload = resolve;
+      xhr.onerror = resolve;
+      xhr.send(formData);
+    });
+  }
+
   document.querySelectorAll('form.lead-form').forEach(function (form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -34,6 +53,15 @@
         submitBtn.textContent = cvFile ? 'Uploading CV...' : 'Sending...';
       }
 
+      var progressFill = null;
+      if (cvFile && submitBtn) {
+        var bar = document.createElement('div');
+        bar.className = 'upload-progress';
+        bar.innerHTML = '<div class="upload-progress-fill"></div>';
+        submitBtn.insertAdjacentElement('afterend', bar);
+        progressFill = bar.querySelector('.upload-progress-fill');
+      }
+
       var formData = new FormData(form);
       formData.delete('cv'); // the raw File object can't be read server-side via no-cors; base64 fields below replace it
       formData.append('formType', form.dataset.formType || '');
@@ -48,11 +76,9 @@
 
       ready
         .then(function () {
-          // mode:'no-cors' means the response is opaque (can't read result.success),
-          // but the promise still resolves once the request is sent successfully —
-          // that's enough to know it reached the sheet. A genuine network failure
-          // (offline, DNS, etc.) is what actually lands in .catch().
-          return fetch(ENDPOINT_URL, { method: 'POST', mode: 'no-cors', body: formData });
+          return postWithProgress(ENDPOINT_URL, formData, function (fraction) {
+            if (progressFill) progressFill.style.width = Math.round(fraction * 100) + '%';
+          });
         })
         .then(function () { showSuccess(form); })
         .catch(function () {
@@ -60,6 +86,7 @@
             submitBtn.disabled = false;
             submitBtn.textContent = originalBtnText;
           }
+          if (progressFill) progressFill.parentElement.remove();
           alert("Something went wrong sending your info. Please try again in a moment.");
         });
     });
