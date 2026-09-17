@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://paragon-central.netlify.app/sitemap.xml
+Sitemap: https://paragoncentral.org/sitemap.xml
