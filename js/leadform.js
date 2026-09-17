@@ -15,23 +15,22 @@
     });
   }
 
-  // XHR (not fetch) so we can listen to upload.progress for the CV progress bar.
-  // Apps Script's exec endpoint doesn't send CORS headers, so onload/onerror both
-  // just mean "the request went out" — same opaque, presumed-success contract the
-  // old fetch(...,{mode:'no-cors'}) call had.
-  function postWithProgress(url, formData, onProgress) {
-    return new Promise(function (resolve) {
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST', url);
-      if (onProgress) {
-        xhr.upload.addEventListener('progress', function (e) {
-          if (e.lengthComputable) onProgress(e.loaded / e.total);
-        });
-      }
-      xhr.onload = resolve;
-      xhr.onerror = resolve;
-      xhr.send(formData);
-    });
+  // Simulated progress, not real upload.progress: XMLHttpRequest to Apps Script's
+  // /exec endpoint fails at the network level (its redirect response trips up
+  // XHR's stricter CORS handling), even though the request actually gets through.
+  // fetch(...,{mode:'no-cors'}) is the only mechanism that reliably delivers to
+  // Apps Script cross-origin, but it gives no real progress events, so we ease the
+  // bar toward 90% over an estimated duration and snap to 100% on actual completion.
+  function fakeProgress(fileSize, onProgress) {
+    var ASSUMED_BYTES_PER_MS = 400; // ~400KB/s, a conservative mobile-data estimate
+    var estimatedMs = fileSize / ASSUMED_BYTES_PER_MS;
+    var start = Date.now();
+    var interval = setInterval(function () {
+      var elapsed = Date.now() - start;
+      var fraction = Math.min(0.9, elapsed / estimatedMs * 0.9);
+      onProgress(fraction);
+    }, 150);
+    return function stop() { clearInterval(interval); };
   }
 
   document.querySelectorAll('form.lead-form').forEach(function (form) {
@@ -54,12 +53,16 @@
       }
 
       var progressFill = null;
+      var stopProgress = null;
       if (cvFile && submitBtn) {
         var bar = document.createElement('div');
         bar.className = 'upload-progress';
         bar.innerHTML = '<div class="upload-progress-fill"></div>';
         submitBtn.insertAdjacentElement('afterend', bar);
         progressFill = bar.querySelector('.upload-progress-fill');
+        stopProgress = fakeProgress(cvFile.size, function (fraction) {
+          progressFill.style.width = Math.round(fraction * 100) + '%';
+        });
       }
 
       var formData = new FormData(form);
@@ -76,12 +79,22 @@
 
       ready
         .then(function () {
-          return postWithProgress(ENDPOINT_URL, formData, function (fraction) {
-            if (progressFill) progressFill.style.width = Math.round(fraction * 100) + '%';
-          });
+          // mode:'no-cors' means the response is opaque (can't read result.success),
+          // but the promise still resolves once the request is sent successfully —
+          // that's enough to know it reached the sheet. A genuine network failure
+          // (offline, DNS, etc.) is what actually lands in .catch(). Do NOT switch
+          // this to XMLHttpRequest — Apps Script's /exec redirect response trips up
+          // XHR's CORS handling and silently drops the submission (see fakeProgress
+          // comment above for how we found this).
+          return fetch(ENDPOINT_URL, { method: 'POST', mode: 'no-cors', body: formData });
         })
-        .then(function () { showSuccess(form); })
+        .then(function () {
+          if (stopProgress) stopProgress();
+          if (progressFill) progressFill.style.width = '100%';
+          showSuccess(form);
+        })
         .catch(function () {
+          if (stopProgress) stopProgress();
           if (submitBtn) {
             submitBtn.disabled = false;
             submitBtn.textContent = originalBtnText;
