@@ -1,7 +1,7 @@
 (function () {
   var ENDPOINT_URL = 'https://script.google.com/macros/s/AKfycbymv-iXwL4MyUd3M30NZAcl6gq2DqrfTrGqu1Tm6MM4iaAwTO8jd4PC5jwptW39ObSb/exec';
   var MESSENGER_URL = 'https://m.me/61593608711410';
-  var MAX_CV_BYTES = 2 * 1024 * 1024; // 2MB — plenty for a resume PDF, keeps mobile-data upload time reasonable
+  var MAX_CV_BYTES = 5 * 1024 * 1024; // 5MB — keeps the base64 POST small enough for Apps Script to handle reliably
 
   function fileToBase64(file) {
     return new Promise(function (resolve, reject) {
@@ -25,7 +25,7 @@
       var cvFile = cvInput && cvInput.files[0];
 
       if (cvFile && cvFile.size > MAX_CV_BYTES) {
-        alert('That CV file is too big (max 2MB). Please pick a smaller file, or leave it blank.');
+        alert('That CV file is too big (max 5MB). Please pick a smaller file, or leave it blank.');
         return;
       }
 
