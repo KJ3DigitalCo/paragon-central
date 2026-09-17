@@ -195,6 +195,7 @@ nav.main a:hover{color:var(--blue)}
 .band{background:linear-gradient(160deg,var(--blue-ink) 0%,var(--blue-950) 100%);color:var(--white);padding:68px 0}
 .band .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
 .band h2{font-size:clamp(1.6rem,3vw,2.1rem)}
+@media(max-width:720px){.band .wrap{flex-direction:column;text-align:center}}
 
 /* ---- footer ---- */
 footer.site{background:var(--blue-950);color:#AEB8D6;padding:64px 0 32px}
