@@ -27,18 +27,9 @@
 <link rel="icon" href="../img/favicon-16x16.png" type="image/png" sizes="16x16">
 <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
 <style>
-  /* Free Consultation page runs red (matching Pru Life U.K.'s brand
-     red) as its dominant color per client request. Overrides the
-     sitewide eyebrow-on-dark color back to gold here specifically,
-     since red-on-red eyebrow text would be unreadable. */
-  :root{
-    --blue:#ED1C24;
-    --blue-ink:#C4151C;
-    --blue-950:#B71C1C;
-    --blue-50:#FDECEC;
-    --blue-100:#F8C6C6;
-  }
-  .eyebrow.on-dark{color:var(--gold)}
+  /* Free Consultation page shares the main site's black dominant
+     theme (css/style.css's own :root values) per client request —
+     reverted from the red-accent version after client feedback. */
   .lp-header{padding:18px 0;border-bottom:1px solid rgba(255,255,255,.1)}
   .lp-header .wrap{display:flex;align-items:center;justify-content:space-between}
   .lp-header img{height:44px}

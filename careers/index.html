@@ -27,17 +27,9 @@
 <link rel="icon" href="../img/favicon-16x16.png" type="image/png" sizes="16x16">
 <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
 <style>
-  /* Careers page runs gold as its dominant color per client request.
-     Backgrounds use a deep bronze/gold tone rather than the bright
-     #FFBF00 CTA gold itself, so the "Get Started" button still pops
-     against it instead of blending in. */
-  :root{
-    --blue:#FFBF00;
-    --blue-ink:#997300;
-    --blue-950:#6B5000;
-    --blue-50:#FDF8ED;
-    --blue-100:#F0E4C0;
-  }
+  /* Careers page shares the main site's black dominant theme
+     (css/style.css's own :root values) per client request — reverted
+     from the gold-accent version after client feedback. */
   .lp-header{padding:18px 0;border-bottom:1px solid rgba(255,255,255,.1)}
   .lp-header .wrap{display:flex;align-items:center;justify-content:space-between}
   .lp-header img{height:44px}
