@@ -8,7 +8,7 @@
 
   var WEDGE_COUNT = 12;
   var SPARK_COUNT = 28;
-  var TAGLINE = 'Cut to the Paragon standard.';
+  var TAGLINE = 'A division of Mega Paragon.';
 
   // Radial wedges from the center point, like a pizza cut (approximate, not
   // exact) — each piece is a triangle fan from center outward; points beyond
