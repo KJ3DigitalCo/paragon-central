@@ -27,10 +27,17 @@
 <link rel="icon" href="../img/favicon-16x16.png" type="image/png" sizes="16x16">
 <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
 <style>
-  /* Careers page now shares the main site's unified Gold/Black/Red
-     identity (css/style.css's own :root values) instead of its own
-     orange accent, per client direction to consolidate every page onto
-     one consistent palette. */
+  /* Careers page runs gold as its dominant color per client request.
+     Backgrounds use a deep bronze/gold tone rather than the bright
+     #FFBF00 CTA gold itself, so the "Get Started" button still pops
+     against it instead of blending in. */
+  :root{
+    --blue:#4A3410;
+    --blue-ink:#332400;
+    --blue-950:#1A1200;
+    --blue-50:#FDF8ED;
+    --blue-100:#F0E4C0;
+  }
   .lp-header{padding:18px 0;border-bottom:1px solid rgba(255,255,255,.1)}
   .lp-header .wrap{display:flex;align-items:center;justify-content:space-between}
   .lp-header img{height:44px}
