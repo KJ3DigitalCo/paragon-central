@@ -27,19 +27,10 @@
 <link rel="icon" href="../img/favicon-16x16.png" type="image/png" sizes="16x16">
 <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
 <style>
-  /* Free Consultation page runs the brand kit's red secondary accent
-     (#D33333, already defined sitewide as --red) instead of the main
-     site's navy, so it reads as visually distinct from both the main site
-     and the Careers landing page (orange) — same gold CTAs and layout,
-     different mood. Scoped to :root here so it only affects this page. */
-  :root{
-    --blue:#ED1C24;
-    --blue-rgb:237,28,36;
-    --blue-ink:#7A0E12;
-    --blue-950:#4A0A0D;
-    --blue-50:#FDECEC;
-    --blue-100:#F8C6C6;
-  }
+  /* Free Consultation page now shares the main site's unified
+     Gold/Black/Red identity (css/style.css's own :root values) instead
+     of its own accent, per client direction to consolidate every page
+     onto one consistent palette. */
   .lp-header{padding:18px 0;border-bottom:1px solid rgba(255,255,255,.1)}
   .lp-header .wrap{display:flex;align-items:center;justify-content:space-between}
   .lp-header img{height:44px}

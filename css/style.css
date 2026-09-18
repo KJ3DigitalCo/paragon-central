@@ -1,16 +1,15 @@
 /* Paragon Central — shared design system (2026 refresh) */
 
 :root{
-  --blue:#2747A0;
-  --blue-rgb:39,71,160;
-  --blue-ink:#121A38;
-  --blue-950:#0B1128;
-  --blue-50:#EEF2FB;
-  --blue-100:#DCE4F5;
+  --blue:#242424;
+  --blue-ink:#141414;
+  --blue-950:#000000;
+  --blue-50:#F3F2F0;
+  --blue-100:#DFDDDA;
   --gold:#FFBF00;
   --gold-deep:#C98F00;
   --gold-pale:#FFE7A3;
-  --red:#D33333;
+  --red:#ED1C24;
   --orange:#FF8B00;
   --ink:#181B22;
   --muted:#5B6273;
@@ -51,7 +50,7 @@ section{padding:96px 0}
   font-weight:700;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;
   color:var(--gold-deep);margin:0 0 18px;
 }
-.eyebrow.on-dark{color:var(--gold)}
+.eyebrow.on-dark{color:var(--red)}
 
 /* ---- facet system (signature motif: chamfered corner, like a cut gem) ---- */
 .facet{clip-path:polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%)}
@@ -169,7 +168,7 @@ nav.main a:hover{color:var(--blue)}
 
 .leadership-section{overflow:hidden}
 .leader-portrait-wrap{position:absolute;left:max(24px, calc((100% - 1160px)/2 + 24px));bottom:0;width:550px;z-index:2}
-.leader-portrait{height:1170px;width:auto;max-width:100%;object-fit:contain;object-position:bottom;display:block;filter:drop-shadow(0 24px 40px rgba(0,0,0,.5)) drop-shadow(0 0 70px rgba(var(--blue-rgb),.4))}
+.leader-portrait{height:1170px;width:auto;max-width:100%;object-fit:contain;object-position:bottom;display:block;filter:drop-shadow(0 24px 40px rgba(0,0,0,.5)) drop-shadow(0 0 70px rgba(255,191,0,.35))}
 .leader-copy{margin-left:590px;padding-left:20px}
 .leader-copy .lead,.leader-copy ul{max-width:640px}
 @media(max-width:900px){

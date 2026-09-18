@@ -27,20 +27,10 @@
 <link rel="icon" href="../img/favicon-16x16.png" type="image/png" sizes="16x16">
 <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
 <style>
-  /* Careers page runs the brand kit's orange secondary accent (#FF8B00)
-     instead of the main site's navy, so it reads as visually its own page
-     next to the sales (Free Consultation) landing page — same gold CTAs
-     and layout, different mood. Scoped to :root here so it only affects
-     this page, not the rest of the site which still reads css/style.css's
-     own navy :root values. */
-  :root{
-    --blue:#FF8B00;
-    --blue-rgb:255,139,0;
-    --blue-ink:#6B3A08;
-    --blue-950:#4A2605;
-    --blue-50:#FFF3E0;
-    --blue-100:#FFDDA6;
-  }
+  /* Careers page now shares the main site's unified Gold/Black/Red
+     identity (css/style.css's own :root values) instead of its own
+     orange accent, per client direction to consolidate every page onto
+     one consistent palette. */
   .lp-header{padding:18px 0;border-bottom:1px solid rgba(255,255,255,.1)}
   .lp-header .wrap{display:flex;align-items:center;justify-content:space-between}
   .lp-header img{height:44px}
