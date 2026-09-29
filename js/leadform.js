@@ -91,6 +91,11 @@
         .then(function () {
           if (stopProgress) stopProgress();
           if (progressFill) progressFill.style.width = '100%';
+          // Only fires on pages with the Meta Pixel loaded (careers/quote);
+          // no-op elsewhere since fbq is undefined there.
+          if (typeof fbq === 'function') {
+            fbq('track', 'Lead', { content_name: form.dataset.formType || '' });
+          }
           showSuccess(form);
         })
         .catch(function () {
