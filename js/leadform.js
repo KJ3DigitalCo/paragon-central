@@ -36,15 +36,36 @@
   var DISPOSABLE = ['mailinator.com', 'guerrillamail.com', '10minutemail.com', 'tempmail.com', 'temp-mail.org', 'yopmail.com', 'trashmail.com', 'sharklasers.com', 'getnada.com', 'dispostable.com', 'maildrop.cc', 'throwawaymail.com', 'fakeinbox.com', 'mailnesia.com', 'mohmal.com', 'emailondeck.com'];
   var DOMAIN_TYPOS = { 'gmial.com': 'gmail.com', 'gmai.com': 'gmail.com', 'gmail.con': 'gmail.com', 'gmail.co': 'gmail.com', 'gmaill.com': 'gmail.com', 'gamil.com': 'gmail.com', 'yahooo.com': 'yahoo.com', 'yaho.com': 'yahoo.com', 'yahoo.con': 'yahoo.com', 'hotmial.com': 'hotmail.com', 'hotmail.con': 'hotmail.com', 'outlok.com': 'outlook.com' };
 
-  // Only blocks obvious junk (temporary inboxes, typo'd domains). Subtler dummies
-  // pass here and get flagged in the Sheet's "Email Check" column instead.
+  var INVALID_EMAIL = 'Invalid email. Please enter your real email address.';
+  var FAKE_LOCAL = /^(test|tests|testing|asdf|asd|qwerty|dummy|fake|none|noemail|no|na|abc|xyz|sample|email|example|admin)[0-9]*$/;
+
+  // Instant checks: temporary inboxes, typo'd domains, obviously fake names.
   function emailProblem(value) {
     var v = String(value || '').trim().toLowerCase();
     var parts = v.split('@');
     var domain = parts[1] || '';
     if (DISPOSABLE.indexOf(domain) !== -1) return 'Please use your real email address, not a temporary one.';
     if (DOMAIN_TYPOS[domain]) return 'Did you mean ' + parts[0] + '@' + DOMAIN_TYPOS[domain] + '?';
+    if (FAKE_LOCAL.test(parts[0]) || /^(.)\1{3,}$/.test(parts[0]) || /^(example|test)\.(com|org|net)$/.test(domain)) return INVALID_EMAIL;
     return '';
+  }
+
+  // Does the domain exist and accept mail? (Google DNS-over-HTTPS: MX, else A.)
+  // Fails open on any network error/timeout so a real lead is never blocked by this check.
+  function domainAcceptsMail(domain) {
+    function ask(type) {
+      var ctl = new AbortController();
+      setTimeout(function () { ctl.abort(); }, 3000);
+      return fetch('https://dns.google/resolve?name=' + encodeURIComponent(domain) + '&type=' + type, { signal: ctl.signal })
+        .then(function (r) { return r.json(); });
+    }
+    return ask('MX')
+      .then(function (r) {
+        if (r.Status === 3) return false;
+        if (r.Answer && r.Answer.length) return true;
+        return ask('A').then(function (a) { return !!(a.Answer && a.Answer.length); });
+      })
+      .catch(function () { return true; });
   }
 
   document.querySelectorAll('form.lead-form').forEach(function (form) {
@@ -56,15 +77,20 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
-      if (emailInput) {
-        var problem = emailProblem(emailInput.value);
-        if (problem) {
-          emailInput.setCustomValidity(problem);
-          emailInput.reportValidity();
-          return;
-        }
+      if (!emailInput) return send();
+      var problem = emailProblem(emailInput.value);
+      if (problem) {
+        emailInput.setCustomValidity(problem);
+        emailInput.reportValidity();
+        return;
       }
+      domainAcceptsMail(emailInput.value.trim().toLowerCase().split('@')[1]).then(function (ok) {
+        if (ok) return send();
+        emailInput.setCustomValidity(INVALID_EMAIL);
+        emailInput.reportValidity();
+      });
 
+      function send() {
       var submitBtn = form.querySelector('button[type="submit"]');
       var originalBtnText = submitBtn ? submitBtn.textContent : '';
       var cvInput = form.querySelector('input[type="file"][name="cv"]');
@@ -135,6 +161,7 @@
           if (progressFill) progressFill.parentElement.remove();
           alert("Something went wrong sending your info. Please try again in a moment.");
         });
+      }
     });
   });
 
