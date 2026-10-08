@@ -33,9 +33,37 @@
     return function stop() { clearInterval(interval); };
   }
 
+  var DISPOSABLE = ['mailinator.com', 'guerrillamail.com', '10minutemail.com', 'tempmail.com', 'temp-mail.org', 'yopmail.com', 'trashmail.com', 'sharklasers.com', 'getnada.com', 'dispostable.com', 'maildrop.cc', 'throwawaymail.com', 'fakeinbox.com', 'mailnesia.com', 'mohmal.com', 'emailondeck.com'];
+  var DOMAIN_TYPOS = { 'gmial.com': 'gmail.com', 'gmai.com': 'gmail.com', 'gmail.con': 'gmail.com', 'gmail.co': 'gmail.com', 'gmaill.com': 'gmail.com', 'gamil.com': 'gmail.com', 'yahooo.com': 'yahoo.com', 'yaho.com': 'yahoo.com', 'yahoo.con': 'yahoo.com', 'hotmial.com': 'hotmail.com', 'hotmail.con': 'hotmail.com', 'outlok.com': 'outlook.com' };
+
+  // Only blocks obvious junk (temporary inboxes, typo'd domains). Subtler dummies
+  // pass here and get flagged in the Sheet's "Email Check" column instead.
+  function emailProblem(value) {
+    var v = String(value || '').trim().toLowerCase();
+    var parts = v.split('@');
+    var domain = parts[1] || '';
+    if (DISPOSABLE.indexOf(domain) !== -1) return 'Please use your real email address, not a temporary one.';
+    if (DOMAIN_TYPOS[domain]) return 'Did you mean ' + parts[0] + '@' + DOMAIN_TYPOS[domain] + '?';
+    return '';
+  }
+
   document.querySelectorAll('form.lead-form').forEach(function (form) {
+    var emailInput = form.querySelector('input[name="email"]');
+    if (emailInput) {
+      emailInput.addEventListener('input', function () { emailInput.setCustomValidity(''); });
+    }
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+
+      if (emailInput) {
+        var problem = emailProblem(emailInput.value);
+        if (problem) {
+          emailInput.setCustomValidity(problem);
+          emailInput.reportValidity();
+          return;
+        }
+      }
 
       var submitBtn = form.querySelector('button[type="submit"]');
       var originalBtnText = submitBtn ? submitBtn.textContent : '';
